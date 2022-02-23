@@ -42,6 +42,8 @@
   display: flex;
   flex-direction: column;
   border-top: 1px #e6ecf0 solid;
+  border-right: 1px #e6ecf0 solid;
+  border-left: 1px #e6ecf0 solid;
   margin-bottom: 5px;
   .description {
     font-size: 1.3rem;
@@ -82,8 +84,8 @@
   .count {
     display: flex;
     align-items: center;
-    border-top: 1px #E6ECF0 solid;
-    border-bottom: 1px #E6ECF0 solid;
+    border-top: 1px #e6ecf0 solid;
+    border-bottom: 1px #e6ecf0 solid;
     height: 68px;
     &__number {
       margin-right: 5px;

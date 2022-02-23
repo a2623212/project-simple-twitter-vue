@@ -40,9 +40,10 @@ export default {
 <style lang="scss" scoped>
 @import './../styles/variables.scss';
 nav{
-  margin-top: 1rem;
+  margin-right: 2rem;
+  margin-top: 0.7rem;
   position: relative;
-  width:378px;
+  // width:378px;
   height: 100%;
   #logo{
     width:50px;

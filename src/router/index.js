@@ -13,13 +13,13 @@ const routes = [
   {
     path: '/main',
     name: 'main',
-    component: () => import('../views/main.vue'),
+    component: () => import('../views/Main.vue'),
   },
   {
     // 之後再更改
     path: '/reply',
     name: 'reply',
-    component: () => import('../views/reply.vue'),
+    component: () => import('../views/Reply.vue'),
   },
   {
     path: '*',

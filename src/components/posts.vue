@@ -137,6 +137,8 @@
   min-height: 100px;
   display: flex;
   border-top: 1px #e6ecf0 solid;
+  border-right: 1px #e6ecf0 solid;
+  border-left: 1px #e6ecf0 solid;
   margin-bottom: 5px;
   .description {
     font-size: 15px;

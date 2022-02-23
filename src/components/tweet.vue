@@ -22,6 +22,8 @@ export default {};
 
 <style lang="scss" scoped>
 .container {
+  display: flex;
+  flex-direction: column;
   width: 600px;
   h1 {
     display: flex;

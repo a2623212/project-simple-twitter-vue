@@ -1,22 +1,30 @@
 <template>
   <div class="container">
-    <div class="previous-page">
-      <img src="./../assets/arrow.png" alt="" />
-      <h1>推文</h1>
+    <Navbar />
+    <div>
+      <div class="previous-page">
+        <img src="./../assets/arrow.png" alt="" />
+        <h1>推文</h1>
+      </div>
+      <Post />
+      <ReplyList />
     </div>
-    <post />
-    <replyList />
+    <Popular />
   </div>
 </template>
 
 <script>
-import post from "../components/post.vue";
-import replyList from "../components/replyList.vue";
+import Post from "../components/Post.vue";
+import ReplyList from "../components/ReplyList.vue";
+import Navbar from "../components/Navbar.vue";
+import Popular from "../components/PopularUsers.vue";
 
 export default {
   components: {
-    post,
-    replyList,
+    Post,
+    ReplyList,
+    Navbar,
+    Popular,
   },
 };
 </script>
@@ -24,10 +32,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   display: flex;
+  justify-content: center;
   width: 600px;
-  flex-direction: column;
-  border-right: 1px #e6ecf0 solid;
-  border-left: 1px #e6ecf0 solid;
   .previous-page {
     display: flex;
     align-items: center;
