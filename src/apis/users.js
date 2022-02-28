@@ -22,6 +22,14 @@ export default {
   getTopUser(){
     return apiHelper.get('/users/top', {headers:{Authorization:`Bearer ${getToken()}`}} )
   },
+  // 取得follower的資料
+  getFollowers({userId}){
+    return apiHelper.get(`/users/${userId}/followers`, {headers:{Authorization:`Bearer ${getToken()}`}} )
+  },
+  //取得following的資料
+  getFollowings({userId}){
+    return apiHelper.get(`/users/${userId}/followings`, {headers:{Authorization:`Bearer ${getToken()}`}} )
+  },
   // 上傳個人資料更新
   update({userId,formData}){
     return apiHelper.put(`/users/${userId}`, formData, {headers:{Authorization:`Bearer ${getToken()}`}})

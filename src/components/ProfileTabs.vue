@@ -39,7 +39,11 @@ export default {
 @import "./../styles/variables.scss";
 .main {
   width: 100%;
-  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border: {
+    left: 1px solid #e6ecf0;
+    right: 1px solid #e6ecf0;
+  }
   .tabs {
     display: flex;
     li {

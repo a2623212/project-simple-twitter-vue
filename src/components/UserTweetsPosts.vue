@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <router-link
       class="router-to-reply"
       tag="div"
@@ -115,6 +115,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main {
+  border-bottom: 1px solid #e6ecf0;
+}
 .router-to-reply {
   z-index: 1;
 }

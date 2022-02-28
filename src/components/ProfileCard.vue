@@ -143,6 +143,10 @@ export default {
 .main {
   width: 100%;
   position: relative;
+  border: {
+    left: 1px solid #e6ecf0;
+    right: 1px solid #e6ecf0;
+  }
   .cover {
     width: 100%;
     height: 200px;

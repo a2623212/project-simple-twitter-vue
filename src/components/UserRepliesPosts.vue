@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <router-link
       class="router-to-reply"
       tag="div"
@@ -68,12 +68,19 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.main {
+  border-bottom: 1px solid #e6ecf0;
+}
 .container {
   width: 600px;
   min-height: 100px;
   display: flex;
-  border-top: 1px #e6ecf0 solid;
-  margin-bottom: 5px;
+  border: {
+    left: 1px solid #e6ecf0;
+    right: 1px solid #e6ecf0;
+    top: 1px solid #e6ecf0;
+  }
+  padding-bottom: 5px;
   .description {
     font-size: 15px;
   }

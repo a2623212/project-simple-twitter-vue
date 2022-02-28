@@ -39,6 +39,7 @@
           @after-delete-on-like="handleDeleteLikePost"
           @after-remove-followship="handleRemoveFollowship"
           @after-add-followship="handleAddFollowship"
+          @after-del-followship="handleDelFollowship"
         />
       </div>
     </div>
@@ -81,6 +82,8 @@ export default {
     this.fetchTweets(userId);
     this.fetchLikes(userId);
     this.fetchReplies(userId);
+    this.fetchFollowers(userId);
+    this.fetchFollowings(userId);
     this.fetchCurrentUser();
   },
   //這不是一個好方法
@@ -90,6 +93,8 @@ export default {
     this.fetchTweets(id);
     this.fetchLikes(id);
     this.fetchReplies(id);
+    this.fetchFollowers(id);
+    this.fetchFollowings(id);
     next();
   },
   data() {
@@ -154,9 +159,6 @@ export default {
           followersLength: Followers ? Followers.length : 0,
           followingsLength: Followings ? Followings.length : 0,
         };
-
-        this.Followers = Followers;
-        this.Followings = Followings;
       } catch (error) {
         console.log("error", error);
         Toast.fire({
@@ -219,6 +221,36 @@ export default {
         Toast.fire({
           icon: "error",
           title: "無法取得該使用者喜愛資料，請稍後再試",
+        });
+      }
+    },
+    async fetchFollowers(userId) {
+      try {
+        const { data } = await usersAPI.getFollowers({ userId });
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+        this.Followers = data;
+      } catch (error) {
+        console.log("error", error);
+        Toast.fire({
+          icon: "error",
+          title: "無法取得該Followers資料，請稍後再試",
+        });
+      }
+    },
+    async fetchFollowings(userId) {
+      try {
+        const { data } = await usersAPI.getFollowings({ userId });
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+        this.Followings = data;
+      } catch (error) {
+        console.log("error", error);
+        Toast.fire({
+          icon: "error",
+          title: "無法取得該Followings資料，請稍後再試",
         });
       }
     },
@@ -293,8 +325,14 @@ export default {
         if (data.status === "error") {
           throw new Error(data.message);
         }
-        this.Followings = this.Followings.filter((user) => {
-          return user.id !== userId;
+        this.Followings = this.Followings.map((user) => {
+          if (user.id === userId) {
+            return {
+              ...user,
+              isFollowed: false,
+            };
+          }
+          return user;
         });
       } catch (error) {
         console.log("error", error);
@@ -310,11 +348,43 @@ export default {
         if (data.status === "error") {
           throw new Error(data.message);
         }
+        this.Followers = this.Followers.map((user) => {
+          if (user.followerId === userId) {
+            return {
+              ...user,
+              isFollowed: true,
+            };
+          }
+          return user;
+        });
       } catch (error) {
         console.log("error", error);
         Toast.fire({
           icon: "error",
           title: "無法新增追蹤，請稍後再試",
+        });
+      }
+    },
+    async handleDelFollowship(userId) {
+      try {
+        const { data } = await usersAPI.removeFollowship({ userId });
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+        this.Followers = this.Followers.map((user) => {
+          if (user.followerId === userId) {
+            return {
+              ...user,
+              isFollowed: false,
+            };
+          }
+          return user;
+        });
+      } catch (error) {
+        console.log("error", error);
+        Toast.fire({
+          icon: "error",
+          title: "無法取消追蹤，請稍後再試",
         });
       }
     },
