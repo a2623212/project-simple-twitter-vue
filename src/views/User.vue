@@ -44,7 +44,10 @@
       </div>
     </div>
     <div class="popular-users">
-      <PopularUsers />
+      <PopularUsers
+        @after-remove-pop="handleRemovePop"
+        @after-add-pop="handleAddPop"
+      />
     </div>
   </div>
 </template>
@@ -398,6 +401,12 @@ export default {
         introduction,
       };
       this.fetchTweets(this.user.id);
+    },
+    handleRemovePop() {
+      this.user.followingsLength - 1;
+    },
+    handleAddPop() {
+      this.user.followingsLength + 1;
     },
     afterCreateTweetModal(payload) {
       const {
