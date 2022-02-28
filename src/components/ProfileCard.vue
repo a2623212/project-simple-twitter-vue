@@ -35,7 +35,18 @@
             alt="avatar"
             class="user-edit__followCtrl__noti"
           />
-          <button class="user-edit__followCtrl__btn">正在追蹤</button>
+          <button
+            class="user-edit__followCtrl__btn d-none"
+            @click.stop.prevent="deleteFollowship(user.id)"
+          >
+            正在追蹤
+          </button>
+          <button
+            class="user-edit__followCtrl__btn1"
+            @click.stop.prevent="addFollowship(user.id)"
+          >
+            追蹤
+          </button>
         </div>
         <ProfileEditModal
           :show="showModal"
@@ -134,6 +145,12 @@ export default {
         });
       }
     },
+    deleteFollowship(userId) {
+      this.$emit("after-del-followship", userId);
+    },
+    addFollowship(userId) {
+      this.$emit("after-add-followship", userId);
+    },
   },
 };
 </script>
@@ -192,6 +209,15 @@ export default {
           size: 15px;
         }
         color: $white;
+      }
+      &__btn1 {
+        width: 60px;
+        height: 35px;
+        border: 1px solid $orange;
+        border-radius: 100px;
+        color: $orange;
+        font-size: 15px;
+        font-weight: 700;
       }
     }
   }
