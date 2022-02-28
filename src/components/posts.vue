@@ -10,7 +10,7 @@
           class="avatar"
           :to="{ name: 'user-tweets', params: { id: post.UserId } }"
         >
-          <img :src="post.image" alt="" class="avatar__pic" />
+          <img :src="post.image | emptyImage" alt="" class="avatar__pic" />
         </router-link>
         <div class="tweet-content">
           <div class="title">
@@ -22,7 +22,7 @@
             <router-link
               :to="{ name: 'user-tweets', params: { id: post.UserId } }"
               class="title__id"
-              >@{{ post.UserId }}．</router-link
+              >@{{ post.account }}．</router-link
             >
             <h4 class="title__formNow">{{ post.createdAt | fromNow }}</h4>
           </div>
@@ -72,11 +72,13 @@ import moment from "moment";
 import Modal from "./ReplyModal.vue";
 import { Toast } from "./../utils/helper";
 import tweetsAPI from "./../apis/tweets";
+import { emptyImageFilter } from "./../utils/mixins";
 
 export default {
   components: {
     Modal,
   },
+  mixins: [emptyImageFilter],
   props: {
     initialPost: {
       type: Object,

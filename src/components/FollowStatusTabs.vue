@@ -42,6 +42,10 @@ export default {
 .main {
   width: 100%;
   margin-top: 1rem;
+  border: {
+    left: 1px solid #e6ecf0;
+    right: 1px solid #e6ecf0;
+  }
   .tabs {
     display: flex;
     li {

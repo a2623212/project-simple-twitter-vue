@@ -14,14 +14,12 @@
             {{ user.introduction }}
           </p>
           <div class="follow-btn">
-            <!-- 要換成等於currentUser的id -->
             <button
               class="follow-btn__follow"
-              v-if="user.Followship.followerId === 14"
+              @click.stop.prevent="removeFollowship(user.id)"
             >
               正在跟隨
             </button>
-            <button class="follow-btn__unfollow" v-else>跟隨</button>
           </div>
         </div>
       </div>
@@ -44,10 +42,17 @@
             <button
               class="follow-btn__follow"
               v-if="user.Followship.followerId === 14"
+              @click.stop.prevent="removeFollowship(user.id)"
             >
               正在跟隨
             </button>
-            <button class="follow-btn__unfollow" v-else>跟隨</button>
+            <button
+              class="follow-btn__unfollow"
+              v-else
+              @click.stop.prevent="addFollowship(user.id)"
+            >
+              跟隨
+            </button>
           </div>
         </div>
       </div>
@@ -72,6 +77,14 @@ export default {
       required: true,
     },
   },
+  methods: {
+    removeFollowship(userId) {
+      this.$emit("after-remove-followship", userId);
+    },
+    addFollowship(userId) {
+      this.$emit("after-add-followship", userId);
+    },
+  },
 };
 </script>
 
@@ -82,7 +95,7 @@ export default {
   width: 600px;
   min-height: 100px;
   display: flex;
-  border-top: 1px #e6ecf0 solid;
+  border: 1px #e6ecf0 solid;
   margin-bottom: 5px;
   position: relative;
   .description {

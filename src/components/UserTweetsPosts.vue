@@ -12,7 +12,11 @@
           class="avatar"
           :to="{ name: 'user', params: { id: tweet.User.id } }"
         >
-          <img :src="tweet.User.avatar" alt="" class="avatar__pic" />
+          <img
+            :src="tweet.User.avatar | emptyImage"
+            alt=""
+            class="avatar__pic"
+          />
         </router-link>
         <div class="tweet-content">
           <div class="title">
@@ -72,9 +76,11 @@
 <script>
 import moment from "moment";
 import Modal from "./ReplyModal.vue";
+import { emptyImageFilter } from "./../utils/mixins";
 
 export default {
   name: "UserTweetsPosts",
+  mixins: [emptyImageFilter],
   components: {
     Modal,
   },

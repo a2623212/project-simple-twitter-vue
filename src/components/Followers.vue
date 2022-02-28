@@ -1,7 +1,7 @@
 <template>
   <div>
     <FollowStatusTabs :status="status" />
-    <FollowCards :followers="followers" :status="status" />
+    <FollowCards :followers="followers" :status="status" v-on="$listeners" />
   </div>
 </template>
 <script>

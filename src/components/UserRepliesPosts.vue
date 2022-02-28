@@ -10,7 +10,11 @@
       <div class="container">
         <div class="avatar">
           <router-link :to="{ name: 'user', params: { id: reply.User.id } }">
-            <img :src="reply.User.avatar" alt="" class="avatar__pic" />
+            <img
+              :src="reply.User.avatar | emptyImage"
+              alt=""
+              class="avatar__pic"
+            />
           </router-link>
         </div>
         <div class="tweet-content">
@@ -44,10 +48,12 @@
 </template>
 <script>
 import moment from "moment";
+import { emptyImageFilter } from "./../utils/mixins";
 //換moment語言到中文
 moment.locale("zh-tw");
 export default {
   name: "UserRepliesPosts",
+  mixins: [emptyImageFilter],
   props: {
     replies: {
       type: Array,

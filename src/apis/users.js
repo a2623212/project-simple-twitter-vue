@@ -26,4 +26,12 @@ export default {
   update({userId,formData}){
     return apiHelper.put(`/users/${userId}`, formData, {headers:{Authorization:`Bearer ${getToken()}`}})
   },
+  // 取消追蹤
+  removeFollowship({userId}){
+    return apiHelper.delete(`/followships/${userId}`,{headers:{Authorization:`Bearer ${getToken()}`}})
+  },
+  // 新增追蹤
+  addFollowship({userId}){
+    return apiHelper.post(`/followships/${userId}`,null,{headers:{Authorization:`Bearer ${getToken()}`}})
+  }
 }

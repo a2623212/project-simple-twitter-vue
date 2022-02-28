@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <div class="navbar">
-      <Navbar :current-status="currentStatus" :current-user="currentUser" />
+      <Navbar
+        :current-status="currentStatus"
+        :current-user="currentUser"
+        @after-create-tweet-modal="afterCreateTweetModal"
+      />
     </div>
     <div class="main">
       <header class="header">
@@ -33,6 +37,8 @@
           @after-delete-like="handleDeleteLike"
           @after-update="handleUpdate"
           @after-delete-on-like="handleDeleteLikePost"
+          @after-remove-followship="handleRemoveFollowship"
+          @after-add-followship="handleAddFollowship"
         />
       </div>
     </div>
@@ -79,7 +85,6 @@ export default {
   },
   //這不是一個好方法
   beforeRouteUpdate(to, from, next) {
-    console.log(to.params.id);
     const id = to.params.id;
     this.fetchUser(id);
     this.fetchTweets(id);
@@ -282,6 +287,37 @@ export default {
         });
       }
     },
+    async handleRemoveFollowship(userId) {
+      try {
+        const { data } = await usersAPI.removeFollowship({ userId });
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+        this.Followings = this.Followings.filter((user) => {
+          return user.id !== userId;
+        });
+      } catch (error) {
+        console.log("error", error);
+        Toast.fire({
+          icon: "error",
+          title: "無法取消追蹤，請稍後再試",
+        });
+      }
+    },
+    async handleAddFollowship(userId) {
+      try {
+        const { data } = await usersAPI.addFollowship({ userId });
+        if (data.status === "error") {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.log("error", error);
+        Toast.fire({
+          icon: "error",
+          title: "無法新增追蹤，請稍後再試",
+        });
+      }
+    },
     handleUpdate(formData) {
       const { name, avatar, cover, introduction } = formData;
       this.user = {
@@ -292,6 +328,33 @@ export default {
         introduction,
       };
       this.fetchTweets(this.user.id);
+    },
+    afterCreateTweetModal(payload) {
+      const {
+        UserId,
+        name,
+        image,
+        account,
+        description,
+        createdAt,
+        LikesCount,
+        RepliesCount,
+      } = payload;
+      const createaData = {
+        createdAt,
+        description,
+        image,
+        LikesCount,
+        RepliesCount,
+        User: {
+          id: UserId,
+          name,
+          account,
+          avatar: image,
+        },
+        isLiked: false,
+      };
+      this.tweets.unshift(createaData);
     },
   },
 };
@@ -307,17 +370,16 @@ export default {
 .main {
   width: 100%;
   height: auto;
-  border: {
-    left: 1px solid #e6ecf0;
-    right: 1px solid #e6ecf0;
-  }
-  border-bottom: 1px #e6ecf0 solid;
 }
 .header {
   width: 100%;
   height: 55px;
   display: flex;
   align-content: center;
+  border: {
+    left: 1px solid #e6ecf0;
+    right: 1px solid #e6ecf0;
+  }
   .previous-btn {
     width: 17px;
     height: 14px;
