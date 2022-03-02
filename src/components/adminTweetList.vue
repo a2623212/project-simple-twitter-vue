@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="avatar">
-      <img :src="tweet.user.avatar | emptyImageFilter" alt="" />
+      <img :src="tweet.user.avatar | emptyImage" alt="" />
     </div>
     <div class="tweet-info">
       <div class="title__formNow">
@@ -14,7 +14,7 @@
       </p>
     </div>
     <div class="delete" @click.stop.prevent="handleDeleteButtonClick(tweet.id)">
-     <img src="../assets/delete_list.png" alt="" class="delete__list" />
+      <img src="../assets/delete_list.png" alt="" class="delete__list" />
     </div>
   </div>
 </template>
