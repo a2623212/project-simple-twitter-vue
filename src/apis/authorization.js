@@ -1,20 +1,13 @@
 import { apiHelper } from "../utils/helper";
 
 export default {
-  // login
-  login({ account, password }) {
-    return apiHelper.post("/signin", {
-      account,
-      password,
-    });
+  login(payload) {
+    return apiHelper.post('/users/login', payload)
   },
-  register(data) {
-    return apiHelper.post("/users", { ...data });
+  register(payload) {
+    return apiHelper.post("/users", payload)
   },
-  adminLogin({ account, password }) {
-    return apiHelper.post("/admin/signin", {
-      account,
-      password,
-    });
-  },
-};
+  adminLogin(payload) {
+    return apiHelper.post("admin/signin",payload)
+  }
+}
