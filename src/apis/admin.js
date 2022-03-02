@@ -1,4 +1,4 @@
-import { apiHelper } from '../src/utils/helpers'
+import { apiHelper } from '../src/utils/helper'
 const getToken = () => localStorage.getItem('token')
 
 export default {
