@@ -1,4 +1,4 @@
-import { apiHelper } from '../src/utils/helpers'
+import { apiHelper } from "../utils/helper";
 
 export default {
   login(payload) {
